@@ -1,0 +1,99 @@
+def insertionsort(list1):
+    i=1
+    while i<len(list1):
+        p=list1[i]
+        j=i-1
+        while j>=0 and list1[j]>p:
+            list1[j+1]=list1[j]
+            j-=1
+        list1[j+1]=p
+        i+=1
+import math
+def mergearr(a,low,high):
+    l=low
+    h=high
+    mid=(low+high)//2
+    size=abs(low-high)+1
+    x=math.ceil(size/2)
+    n1=x
+    n2=size-x
+    left=[0]*n1
+    right=[0]*n2
+    i=0
+    while i<n1:
+        
+        left[i]=a[l]
+        i+=1
+        l+=1
+    i=mid+1
+    j=0
+    print(left)
+    while j<n2:
+        right=a[l]
+        l+=1
+        j+=1
+    print(right)
+    i,j=0,0
+    k=low
+    while i<len(left) and j<len(right):
+        if left[i]<=right[j]:
+            a[k]=left[i]
+            k+=1
+            i+=1
+        else:
+            a[k]=right[j]
+            k+=1
+            j+=1
+    #print(a)
+    while i<len(left):
+        a[k]=left[i]
+        k+=1
+        i+=1
+    #print(a)
+    while j<len(right):
+        a[k]=right[j]
+        k+=1
+        j+=1
+    print(a)
+
+def mergesort(arr,l,h):
+    if l!=h:
+        mid=(l+h)//2
+        mergesort(arr,l,mid)
+        mergesort(arr,mid+1,h)
+        mergearr(arr,l,h)
+def heapify(arr,n,r):
+    largest=r
+    leftc=2*r+1
+    rightc=2*r+2
+   
+    
+    if leftc<n and arr[leftc]>arr[r]:
+        largest=leftc
+    if rightc<n and arr[rightc]>arr[largest]:
+        largest=rightc
+    
+    if largest!=r:
+        temp=arr[r]
+        arr[r]=arr[largest]
+        arr[largest]=temp
+        heapify(arr,n,largest)
+def heapsort(arr):
+    
+    n=len(arr)
+    for i in range(n//2 -1,-1,-1):
+        heapify(arr,n,i)
+        
+    for i in range(n-1,0,-1):
+        arr[0],arr[i]=arr[i],arr[0]
+        heapify(arr,i,0)
+    return arr
+        
+li=[5,7,8,10,13,6,1]
+print(heapsort(li))
+li=[8,2,3,10,1,5,15]
+mergesort(li,0,6)
+print(li)
+arr=[23,4,67,16,2,1]
+insertionsort(arr)
+print(arr)
